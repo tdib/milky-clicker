@@ -1,0 +1,7 @@
+body {
+  font-family: 'Ubuntu';
+}
+
+img {
+  transition: all .05s linear;
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Cow",
+    "description": "Produces milk.",
+    "baseCost": 15,
+    "productionRate": 0.15
+  },
+  {
+    "name": "Milk Burglar",
+    "description": "A hired contractor paid to steal milk from the homes of innocent unsuspecting families.",
+    "baseCost": 100,
+    "productionRate": 10
+  },
+  {
+    "name": "Milk Mine",
+    "description": "Extract milk from frozen cows by cutting them open and scooping it out.",
+    "baseCost": 1000,
+    "productionRate": 100
+  },
+  {
+    "name": "Bluetooth Udders",
+    "description": "Produces milk without the need to feed or store a full blown cow.",
+    "baseCost": 4.5e4,
+    "productionRate": 4.5e3
+  },
+  {
+    "name": "Milkologist",
+    "description": "A specialist that can turn water into milk, the same way Jesus turned water into wine.",
+    "baseCost": 1e6,
+    "productionRate": 1e5
+  },
+  {
+    "name": "Atmospheric Milk Generator",
+    "description": "Extracts milk from the air via a method of condensation. Note: vegan.",
+    "baseCost": 2e7,
+    "productionRate": 2e6
+  },
+  {
+    "name": "Milk Photosynthesizer",
+    "description": "Takes the heat of the sun and performs a special process on it to convert it to milk.",
+    "baseCost": 1e8,
+    "productionRate": 1e7
+  },
+  {
+    "name": "Particle Accelerator",
+    "description": "Beam particles together to alter the forms of matter into milk.",
+    "baseCost": 3.333e8,
+    "productionRate": 2e8
+  },
+  {
+    "name": "Exoplanet",
+    "description": "Planets where the atmosphere is primarily made from milk.",
+    "baseCost": 2e9,
+    "productionRate": 1e9
+  },
+  {
+    "name": "Max",
+    "description": "Converts matter into milk by looking at it.",
+    "baseCost": 1e10,
+    "productionRate": 1e10
+  }
+]
