@@ -22,7 +22,7 @@
   // Handle milk tier upgrades
   $: if ($generalStore.allTimeMilk >= 100000) {
       $generalStore.tier = 3
-    } else if ($generalStore.allTimeMilk >= 100000) {
+    } else if ($generalStore.allTimeMilk >= 1000) {
       $generalStore.tier = 2
     }
 
@@ -123,6 +123,18 @@
     {#each $upgradeStore as upgrade}
       <Upgrade id={upgrade.id}></Upgrade>
     {/each}
+
+    <hr>
+
+    <p>Purchased:</p>
+    {#each $upgradeStore as upgrade}
+      {#if upgrade.purchased}
+        <div class='purchased'>
+          <h5>{upgrade.name}</h5>
+          <p>{upgrade.description}</p>
+        </div>
+      {/if}
+    {/each}
   </div>
 
   <div class='producers'>
@@ -163,6 +175,16 @@
 
     .upgrades {
       flex: 1;
+
+      .purchased {
+        font-size: 0.7em;
+        border: 2px solid black;
+
+        h5, p {
+          padding: 0;
+          margin: 0;
+        }
+      }
     }
 
     .producers {
