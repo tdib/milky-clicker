@@ -5,6 +5,7 @@
   import Producer from '$lib/components/Producer.svelte'
   import Upgrade from '$lib/components/Upgrade.svelte'
   import { formatVolume } from '$lib/util/numberFormatter'
+  import glug from '$lib/assets/glug.mp3'
 
   import generalStore from '../stores/generalStore'
   import producerStore from '../stores/producerStore'
@@ -17,16 +18,15 @@
     .then((module) => { clickImg = module.default })
     .catch((error) => { console.log(error) })
 
-  // Handle milk tier upgrades
-  // $: if ($generalStore.allTimeMilk >= 1000) {
-  //   $generalStore.tier = 2
-  // } else if ($generalStore.allTimeMilk >= 100000) {
-  //   $generalStore.tier = 3
-  // }
 
-  // $: console.log('milkps', $milkPerSecond);
-  // $: console.log('PROD STOORE', $producerStore);
-  // $: console.log('general milk', $generalStore.milk);
+  // Handle milk tier upgrades
+  $: if ($generalStore.allTimeMilk >= 100000) {
+      $generalStore.tier = 3
+    } else if ($generalStore.allTimeMilk >= 100000) {
+      $generalStore.tier = 2
+    }
+
+  $: console.log('upgrade chanrge', $upgradeStore);
 
 
   /**
@@ -40,7 +40,7 @@
     const elapsed = timeStamp - lastTime
     // Compute how much milk would have been generated since last tick
     // console.log('incrementing with ', $milkPerSecond);
-    const increment = $milkPerSecond * elapsed / 1000
+    const increment = ($milkPerSecond * elapsed / 1000) * $generalStore.globalMultiplier
     // console.log('increment is', increment);
     // store.update((store) => ({ ...store, milk: store.milk + increment}))
     if (increment !== 0) {
@@ -56,20 +56,19 @@
   }
 
   onMount(() => {
-
     producers.forEach((producer) => {
       producer['numOwned'] = 0
       producer['multiplier'] = 1
-      // producer['cost'] = 1
-      // producer['canAfford'] = false
     })
     producerStore.set(producers)
 
+    upgrades.forEach((upgrade) => {
+      upgrade['unlocked'] = false
+      upgrade['purchased'] = false
+    })
     upgradeStore.set(upgrades)
-    // $upgradeStore.forEach((upgrade) => {
-    // })
-    requestAnimationFrame(incrementMilk)
 
+    requestAnimationFrame(incrementMilk)
   })
 
   // $: console.log('producerstore', $producerStore);
@@ -84,14 +83,13 @@
   function milkClickFn(power) {
     generalStore.update((s) => ({
       ...s,
-      milk: $generalStore.milk + $generalStore.milkPerClick * power,
-      allTimeMilk: $generalStore.allTimeMilk + $generalStore.milkPerClick * power
+      milk: $generalStore.milk + $generalStore.milkPerClick * $generalStore.globalMultiplier * power,
+      allTimeMilk: $generalStore.allTimeMilk + $generalStore.milkPerClick * $generalStore.globalMultiplier * power
     }))
+
+    let glugAudio = new Audio(glug)
+    glugAudio.play()
   }
-
-
-
-
 </script>
 
 
@@ -104,26 +102,26 @@
     {/if}
 
     <p>You are earning {formatVolume($milkPerSecond)} milk per second.</p>
+    <p>Each click will earn you {formatVolume($generalStore.milkPerClick * $generalStore.globalMultiplier)}.</p>
+    <p>Your global multiplier is {$generalStore.globalMultiplier}</p>
 
     <button on:click={() => milkClickFn(1)} >
       <img src={clickImg} alt={'A delicious containment unit of the finest milk'}>
     </button>
 
-    <button on:click={() => milkClickFn(1)}>Milk</button>
-    <button on:click={() => milkClickFn(2)}>Milk x2</button>
-    <button on:click={() => milkClickFn(5)}>Milk x5</button>
-    <button on:click={() => milkClickFn(10)}>Milk x10</button>
-    <button on:click={() => milkClickFn(100)}>Milk x100</button>
-    <button on:click={() => $milkPerSecond += 1}>+1 mps</button>
-    <button on:click={() => $milkPerSecond += 100}>+100 mps</button>
-    <button on:click={() => $milkPerSecond += 1000}>+1000 mps</button>
-    <button on:click={() => $milkPerSecond += 100000}>+100000 mps</button>
-    <button on:click={() => $milkPerSecond += 1000000}>+1000000 mps</button>
+    <h3>Super top secret dev buttons</h3>
+    <button on:click={() => milkClickFn(1)}>1 Millilitre</button>
+    <button on:click={() => milkClickFn(10)}>10 Millilitres</button>
+    <button on:click={() => milkClickFn(1000)}>1 Litre</button>
+    <button on:click={() => milkClickFn(1000000)}>1 Kilolitre</button>
+    <button on:click={() => milkClickFn(1000000000)}>1 Megalitre</button>
+    <button on:click={() => milkClickFn(1000000000000)}>1 Gigalitre</button>
+    <button on:click={() => milkClickFn(1000000000000000)}>1 Teralitre</button>
   </div>
 
   <div class='upgrades'>
     {#each $upgradeStore as upgrade}
-      <Upgrade {...upgrade}></Upgrade>
+      <Upgrade id={upgrade.id}></Upgrade>
     {/each}
   </div>
 
