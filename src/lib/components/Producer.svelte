@@ -1,46 +1,43 @@
 <script>
-  import { formatVolume } from '$lib/util/numberFormatter.js'
-  import store from '../../stores/globalStore.js'
+  import { formatVolume } from '$lib/util/numberFormatter'
+  import generalStore from '../../stores/generalStore'
+  import producerStore from '../../stores/producerStore'
 
-  export let name = 'Producer name'
-  export let description = 'Lorem ipsum'
-  export let baseCost = 0
-  export let productionRate = 0
-  export let numOwned = 0
+  // Link instance of producer to producerStore
+  export let idx = -1
 
+  // Dynamically set image according to the selected style
   let imgSrc
-  import(`$lib/assets/producers/${$store.style}/${name.toLowerCase().replaceAll(' ', '-')}.png`)
+  import(`$lib/assets/producers/${$generalStore.style}/${$producerStore[idx].name.toLowerCase().replaceAll(' ', '-')}.png`)
     .then((module) => { imgSrc = module.default })
     .catch((error) => { console.log(error) })
 
-  $: cost = baseCost * (1.15 ** numOwned)
-  $: canAfford = $store.milk >= cost
+  $: cost = $producerStore[idx].baseCost * (1.15 ** $producerStore[idx].numOwned)
+  $: canAfford = $generalStore.milk >= cost
 
   function handleBuy() {
-    store.update((s) => ({
+    generalStore.update((s) => ({
       ...s,
-      milk: $store.milk - cost,
-      milkPerSecond: $store.milkPerSecond + productionRate
+      milk: $generalStore.milk - cost,
     }))
-    numOwned++
+
+    $producerStore[idx].numOwned++
   }
 </script>
 
 <button disabled={!canAfford} on:click={handleBuy}>
-  <img src={imgSrc} alt={`High quality image of ${name}`}>
+  <img src={imgSrc} alt={`High quality image of ${$producerStore[idx].name}`}>
 
   <div>
     <div class='header-line'>
-      <h2>{name}</h2>
+      <h2>{$producerStore[idx].name}</h2>
       <span>(Cost: {formatVolume(cost)})</span>
     </div>
-    <p>{description}</p>
-    <p>Generates {formatVolume(productionRate)}/s</p>
-    <p>You own {numOwned} {name}{name.endsWith('s') || numOwned === 1 ? '': 's'}</p>
+    <p>{$producerStore[idx].description}</p>
+    <p>Generates {formatVolume($producerStore[idx].baseProductionRate)}/s</p>
+    <p>You own {$producerStore[idx].numOwned} {$producerStore[idx].name}{$producerStore[idx].name.endsWith('s') || $producerStore[idx].numOwned === 1 ? '': 's'}</p>
   </div>
 </button>
-
-
 
 <style lang='scss'>
   button {
