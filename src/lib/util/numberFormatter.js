@@ -17,7 +17,7 @@ const units = [
  * Takes a decimal value and formats it in the form "<number> <unit>"
  * e.g. "3.205 nanolitres"
  */
-export function formatVolume(value) {
+export function formatVolume(value, trimZeros=true) {
   if (value === 0) {
     return "no"
   }
@@ -27,7 +27,10 @@ export function formatVolume(value) {
   // Finds the first magnitude where the argument value is higher - this is the most relevant unit
   for (let i = units.length - 1; i >= 0; i--) {
     if (Math.abs(value) >= units[i].magnitude) {
-      return `${(value/units[i].magnitude).toPrecision(5)} ${units[i].unit}${sFlag ? 's' : ''}`
+      const val = value / units[i].magnitude
+      const rounded = val.toFixed(3);
+
+      return `${trimZeros ? parseFloat(rounded) : rounded} ${units[i].unit}${sFlag ? 's' : ''}`
     }
   }
 

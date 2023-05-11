@@ -56,20 +56,26 @@
   style={`display: ${($upgradeStore[idx].unlocked && !$upgradeStore[idx].purchased) ? 'block;' : 'none;'}`}
   on:click={handleBuy}
 >
-  <h5>{name} ({formatVolume(price)})</h5>
+  <h4>{name} ({formatVolume(price)})</h4>
   <p>{description}</p>
 </button>
 
 <style lang='scss'>
-
   .wrapper {
+    padding: 1em;
     text-align: left;
+    cursor: pointer;
+    width: 100%;
 
-    h5 {
+    &:disabled {
+      cursor: default;
+    }
+
+    h4 {
       margin: 0;
     }
     p {
-      margin-block: .5em 2em;
+      margin-block: .5em .25em;
     }
   }
 </style>

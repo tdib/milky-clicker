@@ -26,45 +26,62 @@
 </script>
 
 <button disabled={!canAfford} on:click={handleBuy}>
-  <img src={imgSrc} alt={`High quality image of ${$producerStore[idx].name}`}>
+  
+  <div class='producer-left'>
+    <img src={imgSrc} alt={`High quality image of ${$producerStore[idx].name}`}>
+    Owned: {$producerStore[idx].numOwned}
+  </div>
 
   <div>
-    <div class='header-line'>
-      <h2>{$producerStore[idx].name}</h2>
-      <span>(Cost: {formatVolume(cost)})</span>
-    </div>
-    <p>{$producerStore[idx].description}</p>
-    <p>Generates {formatVolume($producerStore[idx].baseProductionRate)}/s</p>
-    <p>You own {$producerStore[idx].numOwned} {$producerStore[idx].name}{$producerStore[idx].name.endsWith('s') || $producerStore[idx].numOwned === 1 ? '': 's'}</p>
+    <h2>{$producerStore[idx].name}</h2>
+    <p>(Cost: {formatVolume(cost)})</p>
+    <p>(Produces: {formatVolume($producerStore[idx].baseProductionRate)}/s)</p>
+    <p class='description'>{$producerStore[idx].description}</p>
   </div>
 </button>
 
 <style lang='scss'>
   button {
-    border: 2px solid black;
+    background-color: rgb(138, 143, 164);
+    border: none;
     padding: 1em;
     font-size: .9em;
     text-align: left;
     width: 100%;
     display: flex;
+    max-width: 35em;
+    border-radius: .5em;
+
+    .producer-left {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      width: 20%;
+      margin-inline-end: 1em;
+
+      img {
+        margin-block-end: 1em;
+        border-radius: .25em;
+      }
+    }
+
+    .description {
+      margin-block-start: 1em;
+    }
 
     &:hover {
       cursor: pointer;
+
+      &:not(:disabled) {
+        filter: brightness(0.98);
+      }
     }
 
     &:disabled {
-      background-color: red;
-    }
-
-    img {
-      width: 30%;
-      padding-inline-end: 1em;;
-    }
-
-
-    .header-line {
-      display: flex;
-      align-items: center;
+      img {
+        filter: grayscale(100%);
+        opacity: 0.5;
+      }
     }
 
     h2 {

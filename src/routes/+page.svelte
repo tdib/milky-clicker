@@ -89,19 +89,19 @@
 
 
 <div class='wrapper'>
-  <div class='clicker'>
-    {#if $generalStore.milk === 0}
-      <p>You currently have no milk</p>
-    {:else}
-      <p>You currently have {formatVolume($generalStore.milk)} of milk</p>
-    {/if}
+  <div class='clicker-section'>
+    <div class='milk-counter'>
+      {#if $generalStore.milk === 0}
+        You have no milk :(
+      {:else}
+        {formatVolume($generalStore.milk, false)}
+      {/if}
+    </div>
 
-    <p>You are earning {formatVolume($milkPerSecond)} milk per second.</p>
-    <p>Each click will earn you {formatVolume($generalStore.milkPerClick * $generalStore.globalMultiplier)}.</p>
-    <p>Your global multiplier is {$generalStore.globalMultiplier}</p>
+    <p>(earning {formatVolume($milkPerSecond)} milk per second)</p>
 
-    <button on:click={() => milkClickFn(1)} >
-      <img src={clickImg} alt={'A delicious containment unit of the finest milk'}>
+    <button on:click={() => milkClickFn(1)}>
+      <img src={clickImg} alt={'A delicious containment unit of the finest milk'} class='milk-img'>
     </button>
 
     <label for='style'>Art style:</label>
@@ -111,28 +111,37 @@
       <option value='ai'>Dalle 2</option>
     </select>
 
-    <h3>Super top secret dev buttons</h3>
-    <button on:click={() => milkClickFn(1)}>1 Millilitre</button>
-    <button on:click={() => milkClickFn(10)}>10 Millilitres</button>
-    <button on:click={() => milkClickFn(1000)}>1 Litre</button>
-    <button on:click={() => milkClickFn(1000000)}>1 Kilolitre</button>
-    <button on:click={() => milkClickFn(1000000000)}>1 Megalitre</button>
-    <button on:click={() => milkClickFn(1000000000000)}>1 Gigalitre</button>
-    <button on:click={() => milkClickFn(1000000000000000)}>1 Teralitre</button>
+    <div class='stats'>
+      <h3>Statistics:</h3>
+      <p>All time milk: {formatVolume($generalStore.allTimeMilk, false)}</p>
+      <p>Milk per click: {formatVolume($generalStore.milkPerClick * $generalStore.globalMultiplier)}</p>
+      <p>Global multiplier: {$generalStore.globalMultiplier}</p>
+    </div>
+
+    <div class='dev'>
+      <h3>Super top secret dev buttons</h3>
+      <button on:click={() => milkClickFn(1)}>Generate 1 Millilitre</button>
+      <button on:click={() => milkClickFn(10)}>Generate 10 Millilitres</button>
+      <button on:click={() => milkClickFn(1000)}>Generate 1 Litre</button>
+      <button on:click={() => milkClickFn(1000000)}>Generate 1 Kilolitre</button>
+      <button on:click={() => milkClickFn(1000000000)}>Generate 1 Megalitre</button>
+      <button on:click={() => milkClickFn(1000000000000)}>Generate 1 Gigalitre</button>
+      <button on:click={() => milkClickFn(1000000000000000)}>Generate 1 Teralitre</button>
+    </div>
   </div>
 
-  <div class='upgrades'>
+  <div class='upgrades-section'>
     {#each $upgradeStore as upgrade}
       <Upgrade id={upgrade.id}></Upgrade>
     {/each}
 
     <hr>
 
-    <p>Purchased:</p>
+    <h3>Purchased Upgrades:</h3>
     {#each $upgradeStore as upgrade}
       {#if upgrade.purchased}
         <div class='purchased'>
-          <h5>{upgrade.name}</h5>
+          <h4>{upgrade.name}</h4>
           <p>{upgrade.description}</p>
         </div>
       {/if}
@@ -149,10 +158,25 @@
 
 <style lang='scss'>
   .wrapper {
+    margin: 1em;
     display: flex;
+    gap: 2em;
 
-    .clicker {
+    .clicker-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       width: 30%;
+
+      .milk-counter {
+        font-size: 2em;
+        font-weight: bold;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        margin-block-start: .75em;
+      }
+
 
       button {
         cursor: pointer;
@@ -161,8 +185,9 @@
         outline: none;
         border: none;
 
-        img {
+        .milk-img {
           width: 100%;
+          max-width: 25em;
 
           &:hover {
             scale: 1.05;
@@ -173,16 +198,40 @@
           }
         }
       }
+
+      .stats {
+        width: 100%;
+
+        p {
+          padding: 0;
+          margin-block: .75em;
+        }
+      }
+
+      .dev {
+        button {
+          border-radius: 1em;
+          border: 2px solid rgb(76, 154, 77);
+          padding: 1em;
+          background-color: rgb(141, 204, 122);
+          margin-block-end: .25em;
+          
+        }
+      }
     }
 
-    .upgrades {
+
+    .upgrades-section {
       flex: 1;
 
       .purchased {
         font-size: 0.7em;
         border: 2px solid black;
+        padding: 1em;
+        border-radius: .25em;
+        margin-block-end: 1em;
 
-        h5, p {
+        h4 {
           padding: 0;
           margin: 0;
         }
@@ -190,9 +239,9 @@
     }
 
     .producers {
-      width: 50%;
       display: flex;
       flex-direction: column;
+      gap: 1em;
     }
   }
 </style>
