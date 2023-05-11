@@ -14,6 +14,11 @@
 
   $: cost = $producerStore[idx].baseCost * (1.15 ** $producerStore[idx].numOwned)
   $: canAfford = $generalStore.milk >= cost
+  $: singleProductionRate = $producerStore[idx].baseProductionRate * $producerStore[idx].multiplier * $generalStore.globalMultiplier
+  $: totalProductionRate = $producerStore[idx].numOwned === 0 ? 0 : singleProductionRate * $producerStore[idx].numOwned
+  
+  let unlocked = $producerStore[idx].unlocked
+  $: if (!unlocked) unlocked = $generalStore.milk >= cost * 0.80
 
   function handleBuy() {
     generalStore.update((s) => ({
@@ -25,20 +30,22 @@
   }
 </script>
 
-<button disabled={!canAfford} on:click={handleBuy}>
-  
-  <div class='producer-left'>
-    <img src={imgSrc} alt={`High quality image of ${$producerStore[idx].name}`}>
-    Owned: {$producerStore[idx].numOwned}
-  </div>
+{#if unlocked}
+  <button disabled={!canAfford} on:click={handleBuy}>
+    <div class='producer-left'>
+      <img src={imgSrc} alt={`High quality image of ${$producerStore[idx].name}`}>
+      Owned: {$producerStore[idx].numOwned}
+    </div>
 
-  <div>
-    <h2>{$producerStore[idx].name}</h2>
-    <p>(Cost: {formatVolume(cost)})</p>
-    <p>(Produces: {formatVolume($producerStore[idx].baseProductionRate)}/s)</p>
-    <p class='description'>{$producerStore[idx].description}</p>
-  </div>
-</button>
+    <div>
+      <h2>{$producerStore[idx].name}</h2>
+      <p>(Cost: {formatVolume(cost)})</p>
+      <p>(Each Unit Produces: {formatVolume(singleProductionRate)}/s)</p>
+      <p>(Total Production: {totalProductionRate === 0 ? 'N/A' : `${formatVolume(totalProductionRate)}/s`})</p>
+      <p class='description'>{$producerStore[idx].description}</p>
+    </div>
+  </button>
+{/if}
 
 <style lang='scss'>
   button {

@@ -4,6 +4,7 @@ const generalStore = writable({
   milk: 0,
   allTimeMilk: 0,
   milkPerClick: 1,
+  numClicks: 0,
 
   style: 'dib',
   tier: 1,

@@ -3,7 +3,8 @@
     "name": "Cow",
     "description": "Produces milk.",
     "baseCost": 15,
-    "baseProductionRate": 0.15
+    "baseProductionRate": 0.15,
+    "unlocked": true
   },
   {
     "name": "Milk Burglar",
@@ -15,48 +16,48 @@
     "name": "Milk Mine",
     "description": "Extract milk from frozen cows by cutting them open and scooping it out.",
     "baseCost": 1000,
-    "baseProductionRate": 100
+    "baseProductionRate": 70
   },
   {
     "name": "Bluetooth Udders",
     "description": "Produces milk without the need to feed or store a full blown cow.",
-    "baseCost": 4.5e4,
-    "baseProductionRate": 4.5e3
+    "baseCost": 3.5e4,
+    "baseProductionRate": 3e3
   },
   {
     "name": "Milkologist",
     "description": "A specialist that can turn water into milk, the same way Jesus turned water into wine.",
-    "baseCost": 1e6,
-    "baseProductionRate": 1e5
+    "baseCost": 2e5,
+    "baseProductionRate": 1.7e4
   },
   {
     "name": "Atmospheric Milk Generator",
-    "description": "Extracts milk from the air via a method of condensation. Note: vegan.",
+    "description": "Extracts milk from the air via a method of condensation. Note: vergan.",
     "baseCost": 2e7,
-    "baseProductionRate": 2e6
+    "baseProductionRate": 1.5e6
   },
   {
     "name": "Milk Photosynthesizer",
     "description": "Takes the heat of the sun and performs a special process on it to convert it to milk.",
     "baseCost": 1e8,
-    "baseProductionRate": 1e7
+    "baseProductionRate": 0.75e7
   },
   {
     "name": "Particle Accelerator",
     "description": "Beam particles together to alter the forms of matter into milk.",
-    "baseCost": 3.333e8,
-    "baseProductionRate": 2e8
+    "baseCost": 333333333,
+    "baseProductionRate": 0.25e8
   },
   {
     "name": "Exoplanet",
     "description": "Planets where the atmosphere is primarily made from milk.",
     "baseCost": 2e9,
-    "baseProductionRate": 1e9
+    "baseProductionRate": 1e7
   },
   {
     "name": "Max",
     "description": "Converts matter into milk by looking at it.",
     "baseCost": 1e10,
-    "baseProductionRate": 1e10
+    "baseProductionRate": 1e8
   }
 ]

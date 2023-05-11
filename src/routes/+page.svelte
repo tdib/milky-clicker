@@ -20,10 +20,12 @@
 
 
   // Handle milk tier upgrades
-  $: if ($generalStore.allTimeMilk >= 100000) {
+  $: if ($generalStore.allTimeMilk >= 10000000) {
       $generalStore.tier = 3
+      generalStore.set($generalStore)
     } else if ($generalStore.allTimeMilk >= 1000) {
       $generalStore.tier = 2
+      generalStore.set($generalStore)
     }
 
   /**
@@ -76,7 +78,8 @@
     generalStore.update((s) => ({
       ...s,
       milk: $generalStore.milk + $generalStore.milkPerClick * $generalStore.globalMultiplier * power,
-      allTimeMilk: $generalStore.allTimeMilk + $generalStore.milkPerClick * $generalStore.globalMultiplier * power
+      allTimeMilk: $generalStore.allTimeMilk + $generalStore.milkPerClick * $generalStore.globalMultiplier * power,
+      numClicks: $generalStore.numClicks + 1
     }))
 
     // #HACK Allows immediate unlocks of tier 2/3 upgrade when using dev 1TL milk gen - not sure why this allows the upgrades to show immediately
@@ -98,7 +101,7 @@
       {/if}
     </div>
 
-    <p>(earning {formatVolume($milkPerSecond)} milk per second)</p>
+    <p>(earning {formatVolume($milkPerSecond * $generalStore.globalMultiplier)} milk per second)</p>
 
     <button on:click={() => milkClickFn(1)}>
       <img src={clickImg} alt={'A delicious containment unit of the finest milk'} class='milk-img'>
@@ -116,6 +119,7 @@
       <p>All time milk: {formatVolume($generalStore.allTimeMilk, false)}</p>
       <p>Milk per click: {formatVolume($generalStore.milkPerClick * $generalStore.globalMultiplier)}</p>
       <p>Global multiplier: {$generalStore.globalMultiplier}</p>
+      <p>All time clicks: {$generalStore.numClicks}</p>
     </div>
 
     <div class='dev'>
