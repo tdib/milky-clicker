@@ -16,7 +16,7 @@
   let clickImg
   $: import(`$lib/assets/bottles/${$generalStore.style}/tier${$generalStore.tier}.png`)
     .then((module) => { clickImg = module.default })
-    .catch((error) => { console.log(error) })
+    .catch((error) => { console.warn(error) })
 
 
   // Handle milk tier upgrades
@@ -71,6 +71,8 @@
     requestAnimationFrame(incrementMilk)
   })
 
+  $: console.log($generalStore.style);
+
   // $: console.log('producerstore', $producerStore);
   // $: console.log('generalStore', $generalStore);
 
@@ -108,6 +110,12 @@
     <button on:click={() => milkClickFn(1)} >
       <img src={clickImg} alt={'A delicious containment unit of the finest milk'}>
     </button>
+
+    <label for='style'>Art style:</label>
+    <select id='style' bind:value={$generalStore.style}>
+      <option value='dib'>Dib</option>
+      <option value='ewan'>Ewan</option>
+    </select>
 
     <h3>Super top secret dev buttons</h3>
     <button on:click={() => milkClickFn(1)}>1 Millilitre</button>

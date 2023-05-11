@@ -8,7 +8,7 @@
 
   // Dynamically set image according to the selected style
   let imgSrc
-  import(`$lib/assets/producers/${$generalStore.style}/${$producerStore[idx].name.toLowerCase().replaceAll(' ', '-')}.png`)
+  $: import(`$lib/assets/producers/${$generalStore.style}/${$producerStore[idx].name.toLowerCase().replaceAll(' ', '-')}.png`)
     .then((module) => { imgSrc = module.default })
     .catch((error) => { console.log(error) })
 

@@ -32,7 +32,6 @@
   }
 
 
-
   // $: console.log('upgrades have changed!', $upgradeStore);
 
   // Compute whether the upgrade is unlocked (i.e. visible to the user)
@@ -52,11 +51,13 @@
 
   function handleBuy() {
     // console.log('buying', name, $upgradeStore[idx]);
+    // upgradeStore.
     $upgradeStore[idx].purchased = true
     try {
       console.log('effect', effect);
       eval(effect)
       generalStore.set($generalStore)
+      producerStore.set($producerStore)
       console.log('success!');
       console.log('getting cow', getProducer('Cow'))
     } catch (error) {

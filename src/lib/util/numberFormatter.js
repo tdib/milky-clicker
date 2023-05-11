@@ -14,8 +14,8 @@ const units = [
 
 
 /**
- * Takes a decimal value and formats it in the form "<number> <unit> of milk"
- * e.g. "3.205 nanolitres of milk"
+ * Takes a decimal value and formats it in the form "<number> <unit>"
+ * e.g. "3.205 nanolitres"
  */
 export function formatVolume(value) {
   if (value === 0) {
