@@ -26,9 +26,6 @@
       $generalStore.tier = 2
     }
 
-  $: console.log('upgrade chanrge', $upgradeStore);
-
-
   /**
    * Game tick functionality - increments the amount of milk
    * according to the milk per second, creates a smooth value
@@ -41,10 +38,7 @@
     // Compute how much milk would have been generated since last tick
     // console.log('incrementing with ', $milkPerSecond);
     const increment = ($milkPerSecond * elapsed / 1000) * $generalStore.globalMultiplier
-    // console.log('increment is', increment);
-    // store.update((store) => ({ ...store, milk: store.milk + increment}))
     if (increment !== 0) {
-      // store.milk += increment
       generalStore.update((s) => ({
         ...s,
         milk: $generalStore.milk + increment,
@@ -71,10 +65,6 @@
     requestAnimationFrame(incrementMilk)
   })
 
-  $: console.log($generalStore.style);
-
-  // $: console.log('producerstore', $producerStore);
-  // $: console.log('generalStore', $generalStore);
 
   /**
    * Milk click functionality - increments milk amount based off your
@@ -88,6 +78,9 @@
       milk: $generalStore.milk + $generalStore.milkPerClick * $generalStore.globalMultiplier * power,
       allTimeMilk: $generalStore.allTimeMilk + $generalStore.milkPerClick * $generalStore.globalMultiplier * power
     }))
+
+    // #HACK Allows immediate unlocks of tier 2/3 upgrade when using dev 1TL milk gen - not sure why this allows the upgrades to show immediately
+    producerStore.set($producerStore)
 
     let glugAudio = new Audio(glug)
     glugAudio.play()
@@ -115,6 +108,7 @@
     <select id='style' bind:value={$generalStore.style}>
       <option value='dib'>Dib</option>
       <option value='ewan'>Ewan</option>
+      <option value='ai'>Dalle 2</option>
     </select>
 
     <h3>Super top secret dev buttons</h3>
