@@ -10,7 +10,7 @@
   let imgSrc
   $: import(`$lib/assets/producers/${$generalStore.style}/${$producerStore[idx].name.toLowerCase().replaceAll(' ', '-')}.png`)
     .then((module) => { imgSrc = module.default })
-    .catch((error) => { console.log(error) })
+    .catch((error) => { console.warn(error) })
 
   $: cost = $producerStore[idx].baseCost * (1.15 ** $producerStore[idx].numOwned)
   $: canAfford = $generalStore.milk >= cost

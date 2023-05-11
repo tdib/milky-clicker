@@ -112,7 +112,7 @@
     "id": 12,
     "name": "Milk Smart Contracts",
     "description": "The power of milk is leveraged via the use of BLOCKCHAIN. Technology based upgrades (Bluetooth Udders, Atmospheric Milk Generator, Milk Photosynthesizer, Particle Accelerator) are 25% cheaper.",
-    "effect": "console.log('UNIMPLEMENTED')",
+    "effect": "getProducer('Bluetooth Udders').basePrice *= 0.75;getProducer('Atmospheric Milk Generator').basePrice *= 0.75;getProducer('Milk Photosynthesizer').basePrice *= 0.75;getProducer('Particle Accelerator').basePrice *= 0.75;",
     "preconditions": [
       "ownsUpgrade(10)",
       "ownsProducer('Bluetooth Udders')",
