@@ -26,11 +26,27 @@
     return $generalStore.tier >= tier
   }
 
+  /**
+   * Rewrites any function calls for ownsProducer/ownsUpgrade/hasTier/etc to use the correct function
+   * This is so it can handle the function names being minified
+   */
+  function rewriteCall(call) {
+    const rewrites = {
+      "getProducer": getProducer.name,
+      "ownsProducer": ownsProducer.name,
+      "ownsUpgrade": ownsUpgrade.name,
+      "hasTier": hasTier.name
+    }
+    return Object
+            .entries(rewrites)
+            .reduce((output, [orig, func]) => output.replaceAll(orig, func), call)
+  }
+
   // Compute whether the upgrade is unlocked (i.e. visible to the user)
   $: $upgradeStore[idx].unlocked = preconditions.every((precondition) => {
     $producerStore
     try {
-      if (!!eval(precondition)) {
+      if (!!eval(rewriteCall(precondition))) {
         return true
       }
     } catch (e) {
@@ -41,7 +57,7 @@
   function handleBuy() {
     $upgradeStore[idx].purchased = true
     try {
-      eval(effect)
+      eval(rewriteCall(effect))
       generalStore.set($generalStore)
       producerStore.set($producerStore)
     } catch (error) {
