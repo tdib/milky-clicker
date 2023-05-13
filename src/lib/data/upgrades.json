@@ -3,307 +3,541 @@
     "id": 0,
     "name": "DIY Dairy",
     "description": "A Tiktok video has gone viral, outlining the method to create your own milk using ingredients found in the common household. Your clicks generate 50% more milk.",
-    "effect": "$generalStore.milkPerClick *= 1.5",
-    "preconditions": [],
+    "effects": {
+      "milkPerClickMultiplier": 1.5
+    },
+    "preconditions": {},
     "price": 1
   },
   {
     "id": 1,
     "name": "Scientifically Accurate Cows",
     "description": "The average cow produces approximately 24 litres of milk a day. Cows produce 277.8 microlitres/s.",
-    "effect": "getProducer('Cow').baseProductionRate = 0.2778",
-    "preconditions": ["ownsProducer('Cow')"],
+    "effects": {
+      "baseProductionRate": {
+        "Cow": 0.2778
+      }
+    },
+    "preconditions": {
+      "producers": {
+        "Cow": 1
+      }
+    },
     "price": 50
   },
   {
     "id": 2,
     "name": "Rental Agreement Contract",
     "description": "Milk is used instead of rental agreement contracts. Cows are 25% cheaper.",
-    "effect": "getProducer('Cow').baseCost *= 0.75",
-    "preconditions": ["ownsProducer('Cow')"],
+    "effects": {
+      "baseCostMultiplier": {
+        "Cow": 0.75
+      }
+    },
+    "preconditions": {
+      "producers": {
+        "Cow": 1
+      }
+    },
     "price": 75
   },
   {
     "id": 3,
     "name": "High Lactation Cows",
     "description": "During high lactation periods, high-yielding cows can produce upwards of 60 litres per day! Supercharge your cows, allowing them to constantly produce 694.445 microliters/s.",
-    "effect": "getProducer('Cow').baseProductionRate = 0.694445",
-    "preconditions": ["ownsUpgrade(1)"],
+    "effects": {
+      "baseProductionRate": {
+        "Cow": 0.694445
+      }
+    },
+    "preconditions": {
+      "upgrades": [1]
+    },
     "price": 110
   },
   {
     "id": 4,
     "name": "Turing Cows",
     "description": "Do not fret, and do not be confused. Turing Cows combine the technology of Bluetooth Udders and the research of Milkologists to create cows which are more computationally powerful than Turing machines. James would be proud. Cows produce 3 times more milk.",
-    "effect": "getProducer('Cow').multiplier *= 3",
-    "preconditions": [
-      "ownsUpgrade(3)",
-      "ownsProducer('Bluetooth Udders')",
-      "ownsProducer('Milkologist')"
-    ],
+    "effects": {
+      "producerMultiplier": {
+        "Cow": 3
+      }
+    },
+    "preconditions": {
+      "upgrades": [3],
+      "producers": {
+        "Bluetooth Udders": 1,
+        "Milkologist": 1
+      }
+    },
     "price": 250
   },
   {
     "id": 5,
     "name": "Delicious Dairy",
     "description": "Milkologists discover an all new formula, producing tastier and more nutricious milk. All milk production is 50% higher.",
-    "effect": "$generalStore.globalMultiplier *= 1.5",
-    "preconditions": [
-      "ownsUpgrade(0)",
-      "ownsProducer('Milkologist')"
-    ],
+    "effects": {
+      "globalMultiplier": 1.5
+    },
+    "preconditions": {
+      "upgrades": [0],
+      "producers": {
+        "Milkologist": 1
+      }
+    },
     "price": 200
   },
   {
     "id": 6,
     "name": "Automoobiles",
     "description": "Replace all petrol based vehicles with milk based vehicles. All milk production is doubled.",
-    "effect": "$generalStore.globalMultiplier *= 2",
-    "preconditions": ["hasTier(2)"],
+    "effects": {
+      "globalMultiplier": 2
+    },
+    "preconditions": {
+      "tier": 2
+    },
     "price": 500
   },
   {
     "id": 7,
     "name": "Milk Mobiler",
     "description": "Supply contracted Milk Burglars with a Milk Moobile to help them get around faster. Milk burglars steal twice as much.",
-    "effect": "getProducer('Milk Burglar').multiplier *= 2",
-    "preconditions": [
-      "ownsUpgrade(6)",
-      "ownsProducer('Milk Burglar', 5)"],
+    "effects": {
+      "producerMultiplier": {
+        "Milk Burglar": 2
+      }
+    },
+    "preconditions": {
+      "upgrades": [6],
+      "producers": {
+        "Milk Burglar": 5
+      }
+    },
     "price": 1000
   },
   {
     "id": 8,
     "name": "\"Incentives\"",
     "description": "Incentives.",
-    "effect": "$generalStore.globalMultiplier *= 1.5",
-    "preconditions": ["hasTier(3)"],
+    "effects": {
+      "globalMultiplier": 1.5
+    },
+    "preconditions": {
+      "tier": 3
+    },
     "price": 777777
   },
   {
     "id": 9,
     "name": "Lactose no more",
     "description": "The branch of research under milkology has discovered the cure to lactose intolerance! The value of milk skyrockets! All production is tripled.",
-    "effect": "$generalStore.globalMultiplier *= 3",
-    "preconditions": ["ownsProducer('Milkologist', 50)"],
+    "effects": {
+      "globalMultiplier": 3
+    },
+    "preconditions": {
+      "producers": {
+        "Milkologist": 50
+      }
+    },
     "price": 9050
   },
   {
     "id": 10,
     "name": "Employment Contract",
     "description": "Milk is used instead of employment contracts. Milk burglars and Milkologists are 25% cheaper.",
-    "effect": "getProducer('Milk Burglar').baseCost *= 0.75; getProducer('Milkologist').baseCost *= 0.75",
-    "preconditions": [
-      "ownsUpgrade(2)",
-      "ownsProducer('Milk Burglar', 5)",
-      "ownsProducer('Milkologist', 5)"
-    ],
+    "effects": {
+      "baseCostMultiplier": {
+        "Milk Burglar": 0.75,
+        "Milkologist": 0.75
+      }
+    },
+    "preconditions": {
+      "upgrades": [2],
+      "producers": {
+        "Milk Burglar": 5,
+        "Milkologist": 5
+      }
+    },
     "price": 300
   },
   {
     "id": 11,
     "name": "Milk Volcano",
     "description": "A new method allows volcanos to combust milk into the atmosphere. Milk is 25% higher in value.",
-    "effect": "$generalStore.globalMultiplier *= 1.25",
-    "preconditions": ["ownsProducer('Atmospheric Milk Generator')"],
+    "effects": {
+      "globalMultiplier": 1.25
+    },
+    "preconditions": {
+      "producers": {
+        "Atmospheric Milk Generator": 1
+      }
+    },
     "price": 150
   },
   {
     "id": 12,
     "name": "Milk Smart Contracts",
     "description": "The power of milk is leveraged via the use of BLOCKCHAIN. Technology based upgrades (Bluetooth Udders, Atmospheric Milk Generator, Milk Photosynthesizer, Particle Accelerator) are 25% cheaper.",
-    "effect": "getProducer('Bluetooth Udders').baseCost *= 0.75;getProducer('Atmospheric Milk Generator').baseCost *= 0.75;getProducer('Milk Photosynthesizer').baseCost *= 0.75;getProducer('Particle Accelerator').baseCost *= 0.75;",
-    "preconditions": [
-      "ownsUpgrade(10)",
-      "ownsProducer('Bluetooth Udders')",
-      "ownsProducer('Atmospheric Milk Generator')",
-      "ownsProducer('Milk Photosynthesizer')",
-      "ownsProducer('Particle Accelerator')"
-    ],
+    "effects": {
+      "baseCostMultiplier": {
+        "Bluetooth Udders": 0.75,
+        "Atmospheric Milk Generator": 0.75,
+        "Milk Photosynthesizer": 0.75,
+        "Particle Accelerator": 0.75
+      }
+    },
+    "preconditions": {
+      "upgrades": [10],
+      "producers": {
+        "Bluetooth Udders": 1,
+        "Atmospheric Milk Generator": 1,
+        "Milk Photosynthesizer": 1,
+        "Particle Accelerator": 1
+      }
+    },
     "price": 100
   },
   {
     "id": 13,
     "name": "Fire Faster",
     "description": "Fire particles faster in the particle accelerator. Particle Accelerators produce 2 times more milk.",
-    "effect": "getProducer('Particle Accelerator').multiplier *= 2",
-    "preconditions": ["ownsProducer('Particle Accelerator')"],
+    "effects": {
+      "producerMultiplier": {
+        "Particle Accelerator": 2
+      }
+    },
+    "preconditions": {
+      "producers": {
+        "Particle Accelerator": 1
+      }
+    },
     "price": 1000
   },
   {
     "id": 14,
     "name": "Really Long Tubes",
     "description": "Connect our atmosphere with milk Exoplanets to siphon liquid out. These tubes are 9.461e+17m long.",
-    "effect": "getProducer('Exoplanet').multiplier *= 2",
-    "preconditions": ["ownsProducer('Exoplanet', 5)"],
+    "effects": {
+      "producerMultiplier": {
+        "Exoplanet": 2
+      }
+    },
+    "preconditions": {
+      "producers": {
+        "Exoplanet": 5
+      }
+    },
     "price": 50
   },
   {
     "id": 15,
     "name": "Really Really Long Tubes",
     "description": "Much longer tubes (3.311e+18m) to siphon liquid from further planets.",
-    "effect": "getProducer('Exoplanet').multiplier *= 2",
-    "preconditions": ["ownsUpgrade(14)"],
+    "effects": {
+      "producerMultiplier": {
+        "Exoplanet": 1
+      }
+    },
+    "preconditions": {
+      "upgrades": [14]
+    },
     "price": 15000
   },
   {
     "id": 16,
     "name": "Milk Prophecy",
     "description": "A thunder rumbles the air. His arrival is imminent.",
-    "effect": "console.log('The thunder rumbles through your JavaScript console.')",
-    "preconditions": ["hasTier(3)"],
+    "effects": {
+      "milkPerClickMultiplier": 2
+    },
+    "preconditions": {
+      "tier": 3
+    },
     "price": 999999
   },
   {
     "id": 17,
     "name": "MILKyway Galaxy",
     "description": "A milk God has deemed it necessary that the entire Milkyway Galaxy shall now be turned to milk. No life remains. Milk value increases by 50%.",
-    "effect": "$generalStore.globalMultiplier *= 1.5",
-    "preconditions": ["ownsProducer('Exoplanet')", "ownsProducer('Max')"],
+    "effects": {
+      "globalMultiplier": 1.5
+    },
+    "preconditions": {
+      "producers": {
+        "Exoplanet": 1,
+        "Max": 1
+      }
+    },
     "price": 10000
   },
   {
     "id": 18,
     "name": "Glasses",
     "description": "Allows Max to see further, allowing him to convert more matter into milk.",
-    "effect": "getProducer('Max').multiplier *= 2",
-    "preconditions": ["ownsProducer('Max')"],
+    "effects": {
+      "producerMultiplier": {
+        "Max": 2
+      }
+    },
+    "preconditions": {
+      "producers": {
+        "Max": 1
+      }
+    },
     "price": 1590
   },
   {
     "id": 19,
     "name": "Night Vision Goggles",
     "description": "Allows Max to see at all hours of the night. His nights will no longer require sleep.",
-    "effect": "getProducer('Max').multiplier *= 2",
-    "preconditions": ["ownsUpgrade(18)"],
+    "effects": {
+      "producerMultiplier": {
+        "Max": 2
+      }
+    },
+    "preconditions": {
+      "upgrades": [18]
+    },
     "price": 1
   },
   {
     "id": 20,
     "name": "Telescopic Glasses",
     "description": "Allows Max to look into space and milkify the matter at astronomical distances.",
-    "effect": "getProducer('Max').multiplier *= 2",
-    "preconditions": ["ownsUpgrade(19)"],
+    "effects": {
+      "producerMultiplier": {
+        "Max": 2
+      }
+    },
+    "preconditions": {
+      "upgrades": [19]
+    },
     "price": 50080
   },
   {
     "id": 21,
     "name": "Divine Dairy",
     "description": "The milk Gods have bestowed upon society a brand new update, allowing the tongues of humans to unlock the full milk tasting potential.",
-    "effect": "$generalStore.globalMultiplier *= 3",
-    "preconditions": ["ownsUpgrade(5)", "ownsProducer('Max', 5)"],
+    "effects": {
+      "globalMultiplier": 3
+    },
+    "preconditions": {
+      "upgrades": [5],
+      "producers": {
+        "Max": 5
+      }
+    },
     "price": 4000
   },
   {
     "id": 22,
     "name": "Quiet Socks",
     "description": "Milk burglars are provided with special socks that absorb 99% of sound. Milk burglars steal twice as much milk.",
-    "effect": "getProducer('Milk Burglar').multiplier *= 2",
-    "preconditions": ["ownsProducer('Milk Burglar', 5)"],
+    "effects": {
+      "producerMultiplier": {
+        "Milk Burglar": 2
+      }
+    },
+    "preconditions": {
+      "producers": {
+        "Milk Burglar": 5
+      }
+    },
     "price": 5000
   },
   {
     "id": 23,
     "name": "Cat Feet",
     "description": "Cats are really quiet. Milk burglars now have cat feet. They are quiet. And fast. They steal twice as much milk.",
-    "effect": "getProducer('Milk Burglar').multiplier *= 2",
-    "preconditions": ["ownsProducer('Milk Burglar', 10)"],
+    "effects": {
+      "producerMultiplier": {
+        "Milk Burglar": 2
+      }
+    },
+    "preconditions": {
+      "producers": {
+        "Milk Burglar": 10
+      }
+    },
     "price": 90000
   },
   {
     "id": 24,
     "name": "Ice Cream Scoop",
     "description": "It'll be easier to scoop out the milk with this. Milk mines now produce twice as much milk.",
-    "effect": "getProducer('Milk Mine').multiplier *= 2",
-    "preconditions": ["ownsProducer('Milk Mine', 3)"],
+    "effects": {
+      "producerMultiplier": {
+        "Milk Mine": 2
+      }
+    },
+    "preconditions": {
+      "producers": {
+        "Milk Mine": 3
+      }
+    },
     "price": 12000
   },
   {
     "id": 25,
     "name": "Steve Hands",
     "description": "You know Steve? From Minecraft? Yeah, he's got some pretty good hands. Milk mines now produce twice as much milk.",
-    "effect": "getProducer('Milk Mine').multiplier *= 2",
-    "preconditions": ["ownsUpgrade(24)", "ownsProducer('Milk Mine', 10)"],
+    "effects": {
+      "producerMultiplier": {
+        "Milk Mine": 2
+      }
+    },
+    "preconditions": {
+      "upgrades": [24],
+      "producers": {
+        "Milk Mine": 10
+      }
+    },
     "price": 300000
   },
   {
     "id": 26,
     "name": "Bluetooth 5.3",
     "description": "After dealing with legacy code, the Bluetooth Udder engineers have finally upgraded to 5.3. Bluetooth Udders now produce twice as much milk.",
-    "effect": "getProducer('Bluetooth Udders').multiplier *= 2",
-    "preconditions": ["ownsProducer('Bluetooth Udders', 6)"],
+    "effects": {
+      "producerMultiplier": {
+        "Bluetooth Udders": 2
+      }
+    },
+    "preconditions": {
+      "producers": {
+        "Bluetooth Udders": 6
+      }
+    },
     "price": 50000
   },
   {
     "id": 27,
     "name": "Bluetooth 7",
     "description": "The Bluetooth Udder engineers went into the flow state for a year and a half. They skipped bluetooth 6 but they've upgraded the Udders to 7. Bluetooth Udders now produce thrice as much milk.",
-    "effect": "getProducer('Bluetooth Udders').multiplier *= 3",
-    "preconditions": ["ownsProducer('Bluetooth Udders', 7)"],
+    "effects": {
+      "producerMultiplier": {
+        "Bluetooth Udders": 3
+      }
+    },
+    "preconditions": {
+      "producers": {
+        "Bluetooth Udders": 7
+      }
+    },
     "price": 90000
   },
   {
     "id": 28,
     "name": "Advanced Panelling",
     "description": "Panelling technology has advanced, and the sun's light can more easily be converted into milk. Milk photosynthesizers produce twice as much milk.",
-    "effect": "getProducer('Milk Photosynthesizer').multiplier *= 2",
-    "preconditions": ["ownsProducer('Milk Photosynthesizer', 5)"],
+    "effects": {
+      "producerMultiplier": {
+        "Milk Photosynthesizer": 2
+      }
+    },
+    "preconditions": {
+      "producers": {
+        "Milk Photosynthesizer": 5
+      }
+    },
     "price": 150000
   },
   {
     "id": 29,
     "name": "No Full Auto In Buildings",
-    "description": "It's not full auto! (https://www.youtube.com/watch?v=knhjgPYfDCE). Particle accelerators are FIVE times as efficient.",
-    "effect": "getProducer('Particle Accelerator').multiplier *= 5",
-    "preconditions": ["ownsUpgrade(30)", "ownsProducer('Particle Accelerator', 10)"],
+    "description": "It's not full auto! Particle accelerators are FIVE times as efficient.",
+    "effects": {
+      "producerMultiplier": {
+        "Particle Accelerator": 5
+      }
+    },
+    "preconditions": {
+      "upgrades": [30],
+      "producers": {
+        "Particle Accelerator": 10
+      }
+    },
     "price": 1000000
   },
   {
     "id": 30,
     "name": "Trigger Finger",
     "description": "Finger go BRRRR. Clicking produces twice as much milk.",
-    "effect": "$generalStore.milkPerClick *= 2",
-    "preconditions": ["$generalStore.numClicks >= 50"],
+    "effects": {
+      "milkPerClickMultiplier": 2
+    },
+    "preconditions": {
+      "clicks": 50
+    },
     "price": 1000
   },
   {
     "id": 31,
     "name": "Push My Buttons",
     "description": "If you push the buttons, your clicks will produce 5 times as much milk.",
-    "effect": "$generalStore.milkPerClick *= 5",
-    "preconditions": ["$generalStore.numClicks >= 500"],
+    "effects": {
+      "milkPerClickMultiplier": 5
+    },
+    "preconditions": {
+      "clicks": 100
+    },
     "price": 10000
   },
   {
     "id": 32,
     "name": "Pull My Finger",
     "description": "I might fart, I might not, but if you pull my finger, your clicks will produce 10 times as much milk.",
-    "effect": "$generalStore.milkPerClick *= 10",
-    "preconditions": ["$generalStore.numClicks >= 1000"],
+    "effects": {
+      "milkPerClickMultiplier": 10
+    },
+    "preconditions": {
+      "clicks": 200
+    },
     "price": 100000
   },
   {
     "id": 33,
     "name": "Clicking Needs To Be A Little Stronger",
     "description": "This game is very unbalanced. Clicking produces 100 times as much milk.",
-    "effect": "$generalStore.milkPerClick *= 100",
-    "preconditions": ["ownsProducer('Atmospheric Milk Generator', 10)"],
+    "effects": {
+      "milkPerClickMultiplier": 100
+    },
+    "preconditions": {
+      "producers": {
+        "Atmospheric Milk Generator": 10
+      }
+    },
     "price": 1000000
   },
   {
     "id": 34,
     "name": "Balancing The Game",
     "description": "Let's try 1000x click production?",
-    "effect": "$generalStore.milkPerClick *= 1000",
-    "preconditions": ["ownsProducer('Max', 10)"],
+    "effects": {
+      "milkPerClickMultiplier": 1000
+    },
+    "preconditions": {
+      "producers": {
+        "Max": 10
+      }
+    },
     "price": 1000000
   },
   {
     "id": 35,
     "name": "Surely this would do it",
     "description": "10000. That's a lot of zeroes. Clicking produces 10000 times as much milk.",
-    "effect": "$generalStore.milkPerClick *= 10000",
-    "preconditions": ["ownsProducer('Max', 10)"],
+    "effects": {
+      "milkPerClickMultiplier": 10000
+    },
+    "preconditions": {
+      "upgrades": [],
+      "producers": {
+        "Max": 10
+      }
+    },
     "price": 1000000
   }
 ]
